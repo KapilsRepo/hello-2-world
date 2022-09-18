@@ -3,11 +3,7 @@ version: 2.1
 # Use a package of configuration called an orb.
 commands:
   print_pipeline_id:
-    description:  "command to print pipeline id"
-    parameters:
-      id:
-        type: string
-      steps:
+    steps:
       -run: echo ${CIRCLE_WORKFLOW_ID}
 orbs:
   # Declare a dependency on the welcome-orb
