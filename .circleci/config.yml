@@ -2,14 +2,10 @@
 version: 2.1
 # Use a package of configuration called an orb.
 commands:
-  sayhello:
-    description:  "A very simple command for demo"
-    parameters:
-      to:
-        type: string
-        default: "Hello World"
-    steps:
-      -run: echo << parameters.to >>
+  print_pipeline_id:
+    description:  "command to print pipeline id"
+      steps:
+      -run: echo ${CIRCLE_WORKFLOW_ID}
 orbs:
   # Declare a dependency on the welcome-orb
   welcome: circleci/welcome-orb@0.4.1
@@ -18,6 +14,10 @@ defaults: &dockers
   docker:
         - image: circleci/node:13.8.0
 jobs:
+  my_job:
+    <<: *dockers
+    steps:
+      - print_pipeline_id
   print_hello:
     <<: *dockers
     steps:
@@ -29,8 +29,6 @@ jobs:
   print_world:
     <<: *dockers
     steps:
-      - sayhello:
-          to: "KAPIL"
       - attach_workspace:
           at: ~/
       - run: cat ~/output.txt
@@ -40,6 +38,7 @@ workflows:
     # Run the welcome/run job in its own container
     jobs:
       - welcome/run
+      - my_job
       - print_hello
       - print_world:
           requires:
