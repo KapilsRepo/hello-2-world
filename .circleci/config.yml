@@ -10,7 +10,7 @@ defaults: &dockers
         - image: circleci/node:13.8.0
 jobs:
   print_hello:
-    <<: *defaults
+    <<: *dockers
     steps:
       - run: echo "hello world" > ~/output.txt
       - persist_to_workspace:
@@ -18,7 +18,7 @@ jobs:
           paths:
             - output.txt            
   print_world:
-    <<: *defaults
+    <<: *dockers
     steps:
       - attach_workspace:
           at: ~/
