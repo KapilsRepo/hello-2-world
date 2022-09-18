@@ -5,10 +5,12 @@ orbs:
   # Declare a dependency on the welcome-orb
   welcome: circleci/welcome-orb@0.4.1
 # Orchestrate or schedule a set of jobs
+defaults: &dockers
+  docker:
+        - image: circleci/node:13.8.0
 jobs:
   print_hello:
-    docker:
-      - image: circleci/node:13.8.0
+    <<: *defaults
     steps:
       - run: echo "hello world" > ~/output.txt
       - persist_to_workspace:
@@ -16,8 +18,7 @@ jobs:
           paths:
             - output.txt            
   print_world:
-    docker:
-      - image: circleci/node:13.8.0
+    <<: *defaults
     steps:
       - attach_workspace:
           at: ~/
