@@ -16,11 +16,12 @@ jobs:
     steps:
       - print_pipeline_id:
           id: << pipeline.id >>
-      - run: exit 1
-      - run: on error
-      - print_pipeline_id:
-          id: << Usr Error! >>
-      - when: on_fail     
+      - run: return 1
+      - run: 
+          name: on error
+          - print_pipeline_id:
+              id: << Usr Error! >>
+          when: on_fail     
 
 workflows:
   my_workflow:
