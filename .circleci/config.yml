@@ -19,8 +19,8 @@ jobs:
       - run: return 1
       - run: 
           name: on error
-          - print_pipeline_id:
-              id: << Usr Error! >>
+          print_pipeline_id:
+            id: << Usr Error! >>
           when: on_fail     
 
 workflows:
